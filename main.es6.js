@@ -54,7 +54,12 @@ class CityPopup extends Component {
   state = {
     showPopup: false,
     cities: [],
-    activeCityIndex: null
+    activeCityIndex: null,
+    activeCity: {
+      image: '',
+      title: { rendered: '' },
+      content: { rendered: '' }
+    }
   }
 
   componentDidMount() {
@@ -94,6 +99,7 @@ class CityPopup extends Component {
           this.setState({
             cities,
             activeCityIndex: index,
+            activeCity,
             loadingImage: false
           })
         }, 300)
@@ -117,8 +123,7 @@ class CityPopup extends Component {
   closePopup = () => this.setState({ showPopup: false })
 
   render = () => {
-    const { cities, loadingImage, showPopup } = this.state
-    const activeCity = this.state.cities[this.state.activeCityIndex]
+    const { cities, loadingImage, showPopup, activeCity } = this.state
 
     return (
       <Fragment>
@@ -154,35 +159,21 @@ class CityPopup extends Component {
               <button className="city-popup__arrow-left" onClick={this.goPrev} />
               <button className="city-popup__arrow-right" onClick={this.goNext} />
 
-              {activeCity && (
-                <CSSTransition
-                  in={showPopup}
-                  classNames="city-popup-animation-fade"
-                  timeout={300}
-                  mountOnEnter
-                  unmountOnExit
-                >
-                  <div className="city-popup__flex-row">
-                    <div className="city-popup__flex-column">
-                      <div className="city-popup__image-box">
-                        {loadingImage ? (
-                          <Loader />
-                        ) : (
-                          <img className="city-popup__image" src={activeCity.image} alt="" />
-                        )}
-                        <h2 className="city-popup__city-name">{activeCity.title.rendered}</h2>
-                      </div>
-                    </div>
-                    <div className="city-popup__flex-column">
-                      <div
-                        className="city-popup__info"
-                        dangerouslySetInnerHTML={{ __html: activeCity.content.rendered }}
-                      />
-                      <button className="city-popup__button">Zarezerwuj</button>
+                <div className="city-popup__flex-row">
+                  <div className="city-popup__flex-column">
+                    <div className="city-popup__image-box">
+                      {loadingImage ? <Loader /> : <img className="city-popup__image" src={activeCity.image} alt="" />}
+                      <h2 className="city-popup__city-name">{activeCity.title.rendered}</h2>
                     </div>
                   </div>
-                </CSSTransition>
-              )}
+                  <div className="city-popup__flex-column">
+                    <div
+                      className="city-popup__info"
+                      dangerouslySetInnerHTML={{ __html: activeCity.content.rendered }}
+                    />
+                    <button className="city-popup__button">Zarezerwuj</button>
+                  </div>
+                </div>
             </div>
           </div>
         </CSSTransition>

@@ -83,7 +83,12 @@ var CityPopup = function (_Component) {
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = CityPopup.__proto__ || Object.getPrototypeOf(CityPopup)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
       showPopup: false,
       cities: [],
-      activeCityIndex: null
+      activeCityIndex: null,
+      activeCity: {
+        image: '',
+        title: { rendered: '' },
+        content: { rendered: '' }
+      }
     }, _this.chooseCity = function (id) {
       return function (e) {
         e.preventDefault();
@@ -116,6 +121,7 @@ var CityPopup = function (_Component) {
             _this.setState({
               cities: cities,
               activeCityIndex: index,
+              activeCity: activeCity,
               loadingImage: false
             });
           }, 300);
@@ -133,9 +139,9 @@ var CityPopup = function (_Component) {
       var _this$state = _this.state,
           cities = _this$state.cities,
           loadingImage = _this$state.loadingImage,
-          showPopup = _this$state.showPopup;
+          showPopup = _this$state.showPopup,
+          activeCity = _this$state.activeCity;
 
-      var activeCity = _this.state.cities[_this.state.activeCityIndex];
 
       return React.createElement(
         Fragment,
@@ -184,44 +190,34 @@ var CityPopup = function (_Component) {
               ),
               React.createElement("button", { className: "city-popup__arrow-left", onClick: _this.goPrev }),
               React.createElement("button", { className: "city-popup__arrow-right", onClick: _this.goNext }),
-              activeCity && React.createElement(
-                CSSTransition,
-                {
-                  "in": showPopup,
-                  classNames: "city-popup-animation-fade",
-                  timeout: 300,
-                  mountOnEnter: true,
-                  unmountOnExit: true
-                },
+              React.createElement(
+                "div",
+                { className: "city-popup__flex-row" },
                 React.createElement(
                   "div",
-                  { className: "city-popup__flex-row" },
+                  { className: "city-popup__flex-column" },
                   React.createElement(
                     "div",
-                    { className: "city-popup__flex-column" },
+                    { className: "city-popup__image-box" },
+                    loadingImage ? React.createElement(Loader, null) : React.createElement("img", { className: "city-popup__image", src: activeCity.image, alt: "" }),
                     React.createElement(
-                      "div",
-                      { className: "city-popup__image-box" },
-                      loadingImage ? React.createElement(Loader, null) : React.createElement("img", { className: "city-popup__image", src: activeCity.image, alt: "" }),
-                      React.createElement(
-                        "h2",
-                        { className: "city-popup__city-name" },
-                        activeCity.title.rendered
-                      )
+                      "h2",
+                      { className: "city-popup__city-name" },
+                      activeCity.title.rendered
                     )
-                  ),
+                  )
+                ),
+                React.createElement(
+                  "div",
+                  { className: "city-popup__flex-column" },
+                  React.createElement("div", {
+                    className: "city-popup__info",
+                    dangerouslySetInnerHTML: { __html: activeCity.content.rendered }
+                  }),
                   React.createElement(
-                    "div",
-                    { className: "city-popup__flex-column" },
-                    React.createElement("div", {
-                      className: "city-popup__info",
-                      dangerouslySetInnerHTML: { __html: activeCity.content.rendered }
-                    }),
-                    React.createElement(
-                      "button",
-                      { className: "city-popup__button" },
-                      "Zarezerwuj"
-                    )
+                    "button",
+                    { className: "city-popup__button" },
+                    "Zarezerwuj"
                   )
                 )
               )
@@ -263,3 +259,5 @@ var CityPopup = function (_Component) {
 }(Component);
 
 ReactDOM.render(React.createElement(CityPopup, null), document.getElementById('city-popup'));
+
+//# sourceMappingURL=main.js.map
