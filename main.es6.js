@@ -25,6 +25,11 @@ const Loader = () => (
   </div>
 )
 
+// Fade in/out transition
+const Fade = props => (
+  <CSSTransition timeout={300} classNames="city-popup-animation-fade" mountOnEnter unmountOnExit {...props} />
+)
+
 // A list of buttons that launches the popup
 const ChooseCityButtons = ({ cities, onClick }) =>
   cities.map(city => (
@@ -83,7 +88,7 @@ class CityPopup extends Component {
 
     // Return if the image is already downloaded, or there is no image to be displayed
     if (activeCity.image || !featuredMedia.length) {
-      this.setState({ activeCityIndex: index })
+      this.setState({ activeCityIndex: index, activeCity })
       return
     }
 
@@ -92,7 +97,7 @@ class CityPopup extends Component {
     // Fetch image and save it to the state
     $.ajax(featuredMedia[0].href).done(response => {
       const image = (response.media_details.sizes.large || response.media_details.sizes.medium).source_url
-      const cities = this.state.cities.map((city, i) => (i !== index ? city : { ...activeCity, image }))
+      const cities = this.state.cities.map((city, i) => (i !== index ? city : { ...city, image }))
 
       preloadImage(image).then(() => {
         setTimeout(() => {
@@ -102,7 +107,7 @@ class CityPopup extends Component {
             activeCity: cities[index],
             loadingImage: false
           })
-        }, 300)
+        }, 400)
       })
     })
   }
@@ -124,6 +129,7 @@ class CityPopup extends Component {
 
   render = () => {
     const { cities, loadingImage, showPopup, activeCity } = this.state
+    console.log(activeCity)
 
     return (
       <Fragment>
@@ -151,7 +157,7 @@ class CityPopup extends Component {
           </map>
         </div>
 
-        <CSSTransition in={showPopup} timeout={300} classNames="city-popup-animation-fade" mountOnEnter unmountOnExit>
+        <Fade in={showPopup}>
           <div className="city-popup" onClick={this.closePopup}>
             <div className="city-popup__box" onClick={e => e.stopPropagation()}>
               <h2 className="city-popup__title">Twoja baza wypadowa</h2>
@@ -159,24 +165,24 @@ class CityPopup extends Component {
               <button className="city-popup__arrow-left" onClick={this.goPrev} />
               <button className="city-popup__arrow-right" onClick={this.goNext} />
 
-                <div className="city-popup__flex-row">
-                  <div className="city-popup__flex-column">
-                    <div className="city-popup__image-box">
-                      {loadingImage ? <Loader /> : <img className="city-popup__image" src={activeCity.image} alt="" />}
-                      <h2 className="city-popup__city-name">{activeCity.title.rendered}</h2>
-                    </div>
-                  </div>
-                  <div className="city-popup__flex-column">
-                    <div
-                      className="city-popup__info"
-                      dangerouslySetInnerHTML={{ __html: activeCity.content.rendered }}
-                    />
-                    <button className="city-popup__button">Zarezerwuj</button>
+              <div className="city-popup__flex-row">
+                <div className="city-popup__flex-column">
+                  <div className="city-popup__image-box" style={{ minHeight: activeCity.image ? 0 : 300 }}>
+                    <Fade in={loadingImage}>
+                      <Loader />
+                    </Fade>
+                    {activeCity.image && <img className="city-popup__image" src={activeCity.image} alt="" />}
+                    <h2 className="city-popup__city-name">{activeCity.title.rendered}</h2>
                   </div>
                 </div>
+                <div className="city-popup__flex-column">
+                  <div className="city-popup__info" dangerouslySetInnerHTML={{ __html: activeCity.content.rendered }} />
+                  <button className="city-popup__button">Zarezerwuj</button>
+                </div>
+              </div>
             </div>
           </div>
-        </CSSTransition>
+        </Fade>
       </Fragment>
     )
   }

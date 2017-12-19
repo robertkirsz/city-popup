@@ -92,7 +92,7 @@
 }
 
 .city-popup__city-name {
-  margin: 0;
+  margin: auto 0 0;
   font-family: 'Amatic SC', cursive;
   font-size: 45px;
   text-align: center;
@@ -149,8 +149,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  min-height: 300px;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  bottom: 57px;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .city-popup__spinner {
