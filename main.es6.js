@@ -129,7 +129,6 @@ class CityPopup extends Component {
 
   render = () => {
     const { cities, loadingImage, showPopup, activeCity } = this.state
-    console.log(activeCity)
 
     return (
       <Fragment>
