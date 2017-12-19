@@ -30,14 +30,6 @@ const Fade = props => (
   <CSSTransition timeout={300} classNames="city-popup-animation-fade" mountOnEnter unmountOnExit {...props} />
 )
 
-// A list of buttons that launches the popup
-const ChooseCityButtons = ({ cities, onClick }) =>
-  cities.map(city => (
-    <button key={city.id} onClick={onClick(city.id)}>
-      {city.title.rendered}
-    </button>
-  ))
-
 // An array of cities
 const citiesData = [
   { id: 207, name: 'Kordoba', coords: '472,266,579,264,579,300,473,299' },
@@ -128,33 +120,30 @@ class CityPopup extends Component {
   closePopup = () => this.setState({ showPopup: false })
 
   render = () => {
-    const { cities, loadingImage, showPopup, activeCity } = this.state
+    const { loadingImage, showPopup, activeCity } = this.state
 
     return (
       <Fragment>
-        <ChooseCityButtons cities={cities} onClick={this.chooseCity} />
+        <img
+          className="city-popup__map"
+          src="http://solo.waw.pl/wp-content/uploads/2017/12/Andaluzaj_ramka_final.png"
+          alt="Andaluzja map"
+          useMap="#map_andaluzja"
+        />
 
-        <div>
-          <img
-            src="http://solo.waw.pl/wp-content/uploads/2017/12/Andaluzaj_ramka_final.png"
-            alt="Andaluzja map"
-            useMap="#map_andaluzja"
-            style={{ marginTop: 30 }}
-          />
-          <map name="map_andaluzja">
-            {citiesData.map(city => (
-              <area
-                onClick={this.chooseCity(city.id)}
-                alt={city.name}
-                title={city.name}
-                key={city.id}
-                href="#"
-                shape="poly"
-                coords={city.coords}
-              />
-            ))}
-          </map>
-        </div>
+        <map name="map_andaluzja">
+          {citiesData.map(city => (
+            <area
+              onClick={this.chooseCity(city.id)}
+              alt={city.name}
+              title={city.name}
+              key={city.id}
+              href="#"
+              shape="poly"
+              coords={city.coords}
+            />
+          ))}
+        </map>
 
         <Fade in={showPopup}>
           <div className="city-popup" onClick={this.closePopup}>

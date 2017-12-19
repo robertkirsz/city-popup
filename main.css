@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 
+/* Map */
+
+.city-popup__map {
+  display: block;
+  width: 100%;
+  max-width: 1191px;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Popup */
+
 .city-popup {
   position: fixed;
   top: 0;
