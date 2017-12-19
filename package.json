@@ -1,13 +1,14 @@
 {
   "name": "city-modal",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.html",
-  "author": "Robert Kirsz",
+  "author": "Robert Kirsz <robert.kirsz@gmail.com>",
+  "contributors": ["Marzena Małachowska <malachowska.marzena@gmail.com>"],
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "build": "babel ./main.es6.js --out-file ./main.js",
-    "start": "babel ./main.es6.js --watch --out-file ./main.js"
+    "build": "babel ./main.es6.js --out-file ./main.js --source-maps",
+    "start": "yarn build --watch"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
