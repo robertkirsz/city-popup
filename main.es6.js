@@ -99,7 +99,7 @@ class CityPopup extends Component {
           this.setState({
             cities,
             activeCityIndex: index,
-            activeCity,
+            activeCity: cities[index],
             loadingImage: false
           })
         }, 300)
