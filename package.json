@@ -5,8 +5,17 @@
   "author": "Robert Kirsz",
   "license": "UNLICENSED",
   "private": true,
+  "scripts": {
+    "build": "babel ./main.es6.js --out-file ./main.js",
+    "start": "babel ./main.es6.js --watch --out-file ./main.js"
+  },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "eslint": "^4.1.1",
     "eslint-config-react-app": "^2.0.1",
     "eslint-plugin-flowtype": "^2.34.1",

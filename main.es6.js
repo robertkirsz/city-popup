@@ -35,18 +35,18 @@ const ChooseCityButtons = ({ cities, onClick }) =>
 
 // An array of cities
 const citiesData = [
-  {id: 207, name: 'Kordoba', coords: '472,266,579,264,579,300,473,299'},
-  {id: 196, name: 'Grenada', coords: '749,403,854,401,855,436,749,437'},
-  {id: 202, name: 'Orgivia', coords: '796,464,907,464,908,501,802,497'},
-  {id: 180, name: 'Nerja', coords: '733,513,811,512,811,549,732,551'},
-  {id: 199, name: 'Malaga', coords: '607,496,707,497,710,535,614,535'},
-  {id: 210, name: 'El Chorro', coords: '466,491,579,490,577,522,465,520'},
-  {id: 191, name: 'Ronda', coords: '422,524,512,522,510,554,426,555'},
-  {id: 188, name: 'Marbella', coords: '452,556,561,554,556,591,452,589'},
-  {id: 205, name: 'Gibraltar', coords: '435,657,550,655,550,690,440,691'},
-  {id: 175, name: 'Tarifa', coords: '344,672,431,672,431,710,346,709'},
-  {id: 183, name: 'Kadyks', coords: '237,558,339,557,338,596,238,597'},
-  {id: 185, name: 'Sewilla', coords: '271,380,377,381,373,415,271,414'}
+  { id: 207, name: 'Kordoba', coords: '472,266,579,264,579,300,473,299' },
+  { id: 196, name: 'Grenada', coords: '749,403,854,401,855,436,749,437' },
+  { id: 202, name: 'Orgivia', coords: '796,464,907,464,908,501,802,497' },
+  { id: 180, name: 'Nerja', coords: '733,513,811,512,811,549,732,551' },
+  { id: 199, name: 'Malaga', coords: '607,496,707,497,710,535,614,535' },
+  { id: 210, name: 'El Chorro', coords: '466,491,579,490,577,522,465,520' },
+  { id: 191, name: 'Ronda', coords: '422,524,512,522,510,554,426,555' },
+  { id: 188, name: 'Marbella', coords: '452,556,561,554,556,591,452,589' },
+  { id: 205, name: 'Gibraltar', coords: '435,657,550,655,550,690,440,691' },
+  { id: 175, name: 'Tarifa', coords: '344,672,431,672,431,710,346,709' },
+  { id: 183, name: 'Kadyks', coords: '237,558,339,557,338,596,238,597' },
+  { id: 185, name: 'Sewilla', coords: '271,380,377,381,373,415,271,414' }
 ]
 
 // The main popup component
@@ -66,6 +66,7 @@ class CityPopup extends Component {
 
   // Opens the popup
   chooseCity = id => e => {
+    e.preventDefault()
     this.setState({ showPopup: true })
     this.loadImage(this.state.cities.findIndex(city => city.id === id))
   }
@@ -124,12 +125,25 @@ class CityPopup extends Component {
         <ChooseCityButtons cities={cities} onClick={this.chooseCity} />
 
         <div>
-          <img src="http://solo.waw.pl/wp-content/uploads/2017/12/Andaluzaj_ramka_final.png" alt="Andaluzja map" useMap="#map_andaluzja" style={{marginTop: '30px'}}/>
-            <map name="map_andaluzja" id="Map">
-              {citiesData.map(city => (
-                <area onClick={this.chooseCity(city.id)} alt={city.name} title={city.name} key={city.id} href="#" shape="poly" coords={city.coords}/>
-              ))}
-            </map>
+          <img
+            src="http://solo.waw.pl/wp-content/uploads/2017/12/Andaluzaj_ramka_final.png"
+            alt="Andaluzja map"
+            useMap="#map_andaluzja"
+            style={{ marginTop: 30 }}
+          />
+          <map name="map_andaluzja">
+            {citiesData.map(city => (
+              <area
+                onClick={this.chooseCity(city.id)}
+                alt={city.name}
+                title={city.name}
+                key={city.id}
+                href="#"
+                shape="poly"
+                coords={city.coords}
+              />
+            ))}
+          </map>
         </div>
 
         <CSSTransition in={showPopup} timeout={300} classNames="city-popup-animation-fade" mountOnEnter unmountOnExit>
