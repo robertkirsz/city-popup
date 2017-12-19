@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+.city-popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  color: #1a1a1a;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.city-popup * {
+  box-sizing: inherit;
+}
+
+/* Layout */
+
+.city-popup__box {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 1280px;
+  max-width: 90vw;
+  min-height: 720px;
+  margin: 100px auto 24px;
+  padding: 20px 120px 100px;
+  background: white;
+  border-radius: 8px;
+}
+
+.city-popup__flex-row {
+  flex: 1;
+  display: flex;
+}
+
+.city-popup__flex-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main title */
+
+.city-popup__title {
+  display: flex;
+  align-items: center;
+  margin: 40px 0;
+  font-family: 'Amatic SC', cursive;
+  font-size: 50px;
+  color: #00c8ff;
+  text-align: center;
+}
+
+.city-popup__title::before,
+.city-popup__title::after {
+  content: '';
+  flex: 1;
+  background: rgba(0, 0, 0, 0.3);
+  display: block;
+  height: 1px;
+}
+
+.city-popup__title::before {
+  margin-right: 5%;
+}
+
+.city-popup__title::after {
+  margin-left: 5%;
+}
+
+/* Image section */
+
+.city-popup__image-box {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  max-width: 530px;
+  padding: 24px 24px 0;
+  background: linear-gradient(45deg, white, #e4e2db);
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.75);
+}
+
+.city-popup__image {
+  flex: none;
+  width: 100%;
+  max-width: 482px;
+  height: auto;
+}
+
+.city-popup__city-name {
+  margin: 0;
+  font-family: 'Amatic SC', cursive;
+  font-size: 45px;
+  text-align: center;
+}
+
+/* Info section */
+
+.city-popup__info {
+  margin: 0 0 1.5em 1.5em;
+}
+
+.city-popup__button {
+  flex: none;
+  border: none;
+  padding: 0.25em 0.75em;
+  margin: auto 0 0 auto;
+  background: #00c8ff;
+  color: white;
+  font-size: 32px;
+  font-family: 'Amatic SC', cursive;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Arrow buttons */
+
+.city-popup__arrow-left,
+.city-popup__arrow-right {
+  position: absolute;
+  top: 360px;
+  padding: 0;
+  background: none;
+  border: 35px solid #00c8ff;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  outline: none;
+  cursor: pointer;
+  transition: border-width 0.3s;
+}
+
+.city-popup__arrow-left {
+  left: 35px;
+  border-left: none;
+}
+
+.city-popup__arrow-right {
+  right: 35px;
+  border-right: none;
+}
+
+/* Loader */
+
+.city-popup__spinner-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 300px;
+}
+
+.city-popup__spinner {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+}
+
+.city-popup__spinner-bounce1,
+.city-popup__spinner-bounce2 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-color: #00c8ff;
+  opacity: 0.6;
+  animation: city-popup-spinner-bounce 2s infinite ease-in-out;
+}
+
+.city-popup__spinner-bounce2 {
+  animation-delay: -1s;
+}
+
+/* Animations and transitions */
+
+.city-popup-animation-fade-enter {
+  opacity: 0.01;
+}
+
+.city-popup-animation-fade-enter.city-popup-animation-fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.city-popup-animation-fade-exit {
+  opacity: 1;
+}
+
+.city-popup-animation-fade-exit.city-popup-animation-fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 0.3s ease-in;
+}
+
+@keyframes city-popup-spinner-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+/* Small version */
+
+@media only screen and (max-width: 799px) {
+  .city-popup__box {
+    margin-top: 24px;
+    padding: 24px 40px;
+  }
+
+  .city-popup__flex-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .city-popup__title {
+    margin: 20px 0 40px;
+    font-size: 38px;
+  }
+
+  .city-popup__info {
+    margin: 1.5em 0;
+  }
+
+  .city-popup__arrow-left,
+  .city-popup__arrow-right {
+    border-width: 16px;
+  }
+
+  .city-popup__arrow-left {
+    left: 8px;
+  }
+
+  .city-popup__arrow-right {
+    right: 8px;
+  }
+}
