@@ -165,7 +165,7 @@ class CityPopup extends Component {
                 </div>
                 <div className="city-popup__flex-column">
                   <div className="city-popup__info" dangerouslySetInnerHTML={{ __html: activeCity.content.rendered }} />
-                  <button className="city-popup__button">Zarezerwuj</button>
+                  <a href="http://solo.waw.pl/booking" className="city-popup__link">Zarezerwuj</a>
                 </div>
               </div>
             </div>
