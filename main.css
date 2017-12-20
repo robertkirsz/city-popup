@@ -138,6 +138,11 @@
   cursor: pointer;
 }
 
+.city-popup__link:hover {
+  color: white;
+  text-decoration: none;
+}
+
 /* Arrow buttons */
 
 .city-popup__arrow-left,
