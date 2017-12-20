@@ -2,6 +2,8 @@ const { React, ReactTransitionGroup, $, ReactDOM } = window
 const { Component, Fragment } = React
 const { CSSTransition } = ReactTransitionGroup
 
+const mapSrc = 'http://solo.waw.pl/wp-content/uploads/2017/12/Andaluzaj_ramka_final.png'
+
 // Returns a Promise that resolves when the image is ready to be displayed
 const preloadImage = src =>
   new Promise(resolve => {
@@ -11,8 +13,8 @@ const preloadImage = src =>
     }
 
     const img = new Image()
-    img.onload = resolve
     img.src = src
+    img.onload = () => resolve(img)
   })
 
 // Loader/spinner element
@@ -53,6 +55,7 @@ class CityPopup extends Component {
     cities: [],
     citiesCoords: citiesData,
     activeCityIndex: null,
+    mapWidth: null,
     activeCity: {
       image: '',
       title: { rendered: '' },
@@ -68,9 +71,13 @@ class CityPopup extends Component {
       this.setState({ cities: response })
     })
 
-    this.handleResize()
-
-    window.addEventListener('resize', this.handleResize)
+    // Get real size of the map (used for scaling down it's areas)
+    preloadImage(mapSrc).then(img => {
+      this.setState({ mapWidth: img.width }, () => {
+        this.handleResize()
+        window.addEventListener('resize', this.handleResize)
+      })
+    })
   }
 
   componentWillUnmount() {
@@ -79,7 +86,7 @@ class CityPopup extends Component {
 
   // Scales map areas according to the map's dimensions
   handleResize = () => {
-    const scale = this.map.getBoundingClientRect().width / 1191
+    const scale = this.map.getBoundingClientRect().width / this.state.mapWidth
 
     this.setState({
       citiesCoords: citiesData.map(city => ({
@@ -152,13 +159,13 @@ class CityPopup extends Component {
       <Fragment>
         <img
           className="city-popup__map"
-          src="http://solo.waw.pl/wp-content/uploads/2017/12/Andaluzaj_ramka_final.png"
-          alt="Andaluzja map"
-          useMap="#map_andaluzja"
+          src={mapSrc}
+          alt="Mapa Andaluzji"
+          useMap="#map"
           ref={node => (this.map = node)}
         />
 
-        <map name="map_andaluzja">
+        <map name="map">
           {citiesCoords.map(city => (
             <area
               onClick={this.chooseCity(city.id)}
