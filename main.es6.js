@@ -51,6 +51,7 @@ class CityPopup extends Component {
   state = {
     showPopup: false,
     cities: [],
+    citiesCoords: citiesData,
     activeCityIndex: null,
     activeCity: {
       image: '',
@@ -59,10 +60,35 @@ class CityPopup extends Component {
     }
   }
 
+  map = null
+
   componentDidMount() {
     // Download the list of cities that will be used to create the buttons and display city's info and image
     $.ajax('http://solo.waw.pl/wp-json/wp/v2/posts?categories=2&per_page=20').done(response => {
       this.setState({ cities: response })
+    })
+
+    this.handleResize()
+
+    window.addEventListener('resize', this.handleResize)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize)
+  }
+
+  // Scales map areas according to the map's dimensions
+  handleResize = () => {
+    const scale = this.map.getBoundingClientRect().width / 1191
+
+    this.setState({
+      citiesCoords: citiesData.map(city => ({
+        ...city,
+        coords: city.coords
+          .split(',')
+          .map(coord => Math.round(Number(coord) * scale))
+          .join(',')
+      }))
     })
   }
 
@@ -120,7 +146,7 @@ class CityPopup extends Component {
   closePopup = () => this.setState({ showPopup: false })
 
   render = () => {
-    const { loadingImage, showPopup, activeCity } = this.state
+    const { loadingImage, showPopup, activeCity, citiesCoords } = this.state
 
     return (
       <Fragment>
@@ -129,10 +155,11 @@ class CityPopup extends Component {
           src="http://solo.waw.pl/wp-content/uploads/2017/12/Andaluzaj_ramka_final.png"
           alt="Andaluzja map"
           useMap="#map_andaluzja"
+          ref={node => (this.map = node)}
         />
 
         <map name="map_andaluzja">
-          {citiesData.map(city => (
+          {citiesCoords.map(city => (
             <area
               onClick={this.chooseCity(city.id)}
               alt={city.name}
@@ -165,7 +192,9 @@ class CityPopup extends Component {
                 </div>
                 <div className="city-popup__flex-column">
                   <div className="city-popup__info" dangerouslySetInnerHTML={{ __html: activeCity.content.rendered }} />
-                  <a href="http://solo.waw.pl/booking" className="city-popup__link">Zarezerwuj</a>
+                  <a href="http://solo.waw.pl/booking" className="city-popup__link">
+                    Zarezerwuj
+                  </a>
                 </div>
               </div>
             </div>
