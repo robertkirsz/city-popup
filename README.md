@@ -15,4 +15,4 @@
 
 ## Production
 
-1. `yarn build` - transpiles `main.es6.js to `main.js` (similar to `yarn start`, but does that only once)
+1. `yarn build` - transpiles `main.es6.js` to `main.js` (similar to `yarn start`, but does that only once)
