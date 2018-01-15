@@ -166,13 +166,17 @@ class CityPopup extends Component {
           <img src="http://solo.waw.pl/wp-content/themes/solo2/img/desc4.png" alt="" />
 		    </div>
 
-        <img
-          className="city-popup__map"
-          src={mapSrc}
-          alt="Mapa Andaluzji"
-          useMap="#map"
-          ref={node => (this.map = node)}
-        />
+        <div className="city-popup__map-wrapper">
+          <div className="city-popup__map-wrapper__photo" onClick={this.chooseCity(citiesCoords[0].id)} />
+
+          <img
+            className="city-popup__map"
+            src={mapSrc}
+            alt="Mapa Andaluzji"
+            useMap="#map"
+            ref={node => (this.map = node)}
+          />
+        </div>
 
         <map name="map">
           {citiesCoords.map(city => (

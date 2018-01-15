@@ -1,6 +1,8 @@
 /* Main container */
 
 .city-popup__container {
+  max-width: 1140px;
+  margin: 0 auto;
   color: #1a1a1a;
 }
 
@@ -34,6 +36,50 @@
 }
 
 /* Map */
+
+.city-popup__map-wrapper {
+  position: relative;
+}
+
+.city-popup__map-wrapper__photo {
+  position: absolute;
+  top: 2.5em;
+  left: 2.5em;
+  width: 7.9em;
+  max-width: 250px;
+  height: 7.9em;
+  max-height: 250px;
+  border-width: 0.3em 0.3em 1.2em;
+  border-style: solid;
+  border-color: #F3F3F4;
+  box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.75), 5px 5px 15px rgba(0, 0, 0, 0.75);
+  color: #00c8ff;
+  font-size: 8px;
+  font-family: 'Amatic SC', 'amatic', cursive;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 320px) {
+  .city-popup__map-wrapper__photo {
+    font-size: calc(8px + 24 * ((100vw - 320px) / 820));
+  }
+}
+
+@media screen and (min-width: 1140px) {
+  .city-popup__map-wrapper__photo {
+    font-size: 32px;
+  }
+}
+
+.city-popup__map-wrapper__photo::before {
+  content: 'Galeria';
+  position: absolute;
+  bottom: -1.2em;
+  left: 0;
+  right: 0;
+}
 
 .city-popup__map {
   display: block;
