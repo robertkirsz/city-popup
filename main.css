@@ -1,4 +1,37 @@
-@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+/* Main container */
+
+.city-popup__container {
+  color: #1a1a1a;
+}
+
+/* Header */
+
+.city-popup__header-text {
+  margin-bottom: -80px;
+  text-align: center;
+}
+
+.city-popup__header-text h2 {
+  margin: 0;
+  font-family: 'gloss';
+  font-size: 32px;
+}
+
+.city-popup__header-text a {
+  color: #00c8ff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.city-popup__header-text a:hover {
+  color: #fed54b;
+}
+
+.city-popup__header-text img {
+  position: relative;
+  top: 10px;
+  z-index: 10;
+}
 
 /* Map */
 
@@ -19,7 +52,6 @@
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.3);
-  color: #1a1a1a;
   box-sizing: border-box;
   overflow: auto;
   z-index: 1000;

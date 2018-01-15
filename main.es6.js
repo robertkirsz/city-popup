@@ -1,5 +1,5 @@
 const { React, ReactTransitionGroup, $, ReactDOM } = window
-const { Component, Fragment } = React
+const { Component } = React
 const { CSSTransition } = ReactTransitionGroup
 
 const mapSrc = 'http://solo.waw.pl/wp-content/uploads/2017/12/Andaluzaj_ramka_final.png'
@@ -156,7 +156,16 @@ class CityPopup extends Component {
     const { loadingImage, showPopup, activeCity, citiesCoords } = this.state
 
     return (
-      <Fragment>
+      <div className="city-popup__container">
+        <div className="city-popup__header-text">
+          <h2>
+            Jesteś ciekawy, co warto odwiedzić?
+            <br />
+            <a onClick={this.chooseCity(citiesCoords[0].id)}>Kliknij</a> na miasto i… przekonaj się sam!
+          </h2>
+          <img src="http://solo.waw.pl/wp-content/themes/solo2/img/desc4.png" alt="" />
+		    </div>
+
         <img
           className="city-popup__map"
           src={mapSrc}
@@ -207,7 +216,7 @@ class CityPopup extends Component {
             </div>
           </div>
         </Fade>
-      </Fragment>
+      </div>
     )
   }
 }
