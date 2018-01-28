@@ -195,6 +195,8 @@ class CityPopup extends Component {
         <Fade in={showPopup}>
           <div className="city-popup" onClick={this.closePopup}>
             <div className="city-popup__box" onClick={e => e.stopPropagation()}>
+              <i className="city-popup__close-button fa fa-times" onClick={this.closePopup} />
+
               <h2 className="city-popup__title">Twoja baza wypadowa</h2>
 
               <button className="city-popup__arrow-left" onClick={this.goPrev} />

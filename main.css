@@ -110,6 +110,15 @@
   padding: 0;
 }
 
+.city-popup__close-button.fa {
+  position: absolute;
+  top: 13px;
+  right: 16px;
+  color: #00c8ff;
+  font-size: 40px;
+  cursor: pointer;
+}
+
 /* Layout */
 
 .city-popup__box {
